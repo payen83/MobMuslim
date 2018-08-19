@@ -1,0 +1,7 @@
+{
+  "name": "MobileMuslimApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
