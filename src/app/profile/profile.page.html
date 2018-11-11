@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end">
+        <ion-button>Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="assets/img/user.png">
+      </ion-thumbnail>
+      <ion-label>
+        <ion-text>
+          <h2>user@gmail.com</h2>
+        </ion-text>
+        <ion-note slot="start">
+          <p>Member since 20/9/2018</p>
+        </ion-note>
+      </ion-label>
+    </ion-item>
+    <ion-item-divider>Personal Details</ion-item-divider>
+    <ion-item>
+      <ion-label position="fixed">Name</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Phone</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Address</ion-label>
+      <ion-textarea rows="3" type="text"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">City</ion-label>
+      <ion-input placeholder="i.e Shah Alam" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>State</ion-label>
+      <ion-select placeholder="Please select">
+        <ion-select-option value="Kuala Lumpur">Kuala Lumpur</ion-select-option>
+        <ion-select-option value="Selangor">Selangor</ion-select-option>
+        <ion-select-option value="Putrajaya">Putrajaya</ion-select-option>
+        <ion-select-option value="Pahang">Pahang</ion-select-option>
+        <ion-select-option value="Terengganu">Terengganu</ion-select-option>
+        <ion-select-option value="Kelantan">Kelantan</ion-select-option>
+        <ion-select-option value="Kedah">Kedah</ion-select-option>
+        <ion-select-option value="Pulau Pinang">Pulau Pinang</ion-select-option>
+        <ion-select-option value="Perlis">Perlis</ion-select-option>
+        <ion-select-option value="Negeri Sembilan">Negeri Sembilan</ion-select-option>
+        <ion-select-option value="Melaka">Melaka</ion-select-option>
+        <ion-select-option value="Johor">Johor</ion-select-option>
+        <ion-select-option value="Perak">Perak</ion-select-option>
+        <ion-select-option value="Sabah">Sabah</ion-select-option>
+        <ion-select-option value="Sarawak">Sarawak</ion-select-option>
+        <ion-select-option value="Labuan">Labuan</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item-divider>Account Settings</ion-item-divider>
+    <ion-item>
+      <ion-label position="fixed">Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Confirm password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+  </ion-list>
+</ion-content>

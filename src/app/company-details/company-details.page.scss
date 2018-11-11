@@ -1,0 +1,17 @@
+h1 {
+    //font-size: 1em;
+    margin-top: 7px;
+}
+
+ion-content {
+    background-color: #fff;
+}
+
+ion-item {
+    --ion-color-shade: var(--ion-item-border-color,rgba(0,0,0,0));
+}
+
+.time {
+    color: var(--ion-color-medium);
+    font-size: 0.8em;
+}
