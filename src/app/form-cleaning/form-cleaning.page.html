@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-      <ion-title>Pembantu Rumah Harian</ion-title>
+      <ion-title>Tempahan</ion-title>
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
@@ -8,11 +8,16 @@
   </ion-header>
   
   <ion-content>
+      <ion-card>
+        <img src="assets/img/card-saopaolo.png"/>
+        <div class="card-title cleaner" >Pembantu Rumah Harian</div>
+      </ion-card>
     <ion-list>
       <ion-item-divider>Butiran Tempahan</ion-item-divider>
       <ion-item>
         <ion-label>Tarikh khidmat</ion-label>
-        <ion-datetime placeholder="Masukkan tarikh"></ion-datetime>
+        <!-- <ion-datetime placeholder="Masukkan tarikh" displayFormat="DD/MM/YYYY" min="2018-11-20"></ion-datetime> -->
+        <ion-datetime placeholder="Masukkan tarikh" pickerFormat="DD MMM YYYY" displayFormat="DD/MM/YYYY" min="2018-11-20" max="2022-12-09"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>Jumlah masa</ion-label>
@@ -57,7 +62,7 @@
       </ion-item>
     </ion-list>
     <div padding>
-      <ion-button expand="block">Hantar</ion-button>
+      <ion-button (click)="presentAlertConfirm()" expand="block">Hantar</ion-button>
     </div>
   </ion-content>
   

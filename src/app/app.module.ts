@@ -10,11 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageModule } from './login/login.module';
 import { TabsPageModule } from './tabs/tabs.module';
+import { AcceptedPageModule } from './accepted/accepted.module';
+import { FormCompletedPageModule } from './form-completed/form-completed.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, RouterModule, LoginPageModule, TabsPageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, RouterModule, LoginPageModule, TabsPageModule, AcceptedPageModule, FormCompletedPageModule],
   providers: [
     StatusBar,
     SplashScreen,

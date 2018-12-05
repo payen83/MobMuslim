@@ -1,0 +1,30 @@
+.title {
+    color: var(--ion-color-light);
+}
+
+h2{
+    margin-bottom: 1em;
+}
+
+ion-content {
+    background-color: #fff;
+}
+
+p{
+    color: var(--ion-color-dark);
+}
+
+ion-item {
+    --ion-color-shade: var(--ion-item-border-color,rgba(0,0,0,0));
+}
+
+.time {
+    color: var(--ion-color-medium);
+    font-size: 0.8em;
+}
+
+.theme {
+    background-image: url('../../assets/img/card-sf.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}

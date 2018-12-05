@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Butiran</ion-title>
+    <ion-title>Senarai</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -18,6 +18,11 @@
           <ion-card-title>RM 200</ion-card-title>
           <h2>Syarikat XYZ</h2>
         </ion-label>
+        <div item-content slot="end">
+          <ion-button fill="clear" size="medium" href="CompanyDetails">
+            <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+          </ion-button>
+        </div>
       </ion-item>
     </ion-list>
     <ion-list lines="none">
@@ -41,16 +46,17 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button shape="round" color="primary" expand="block" fill="outline" icon-left center text-center>
+          <ion-button (click)="presentAlertConfirm()" shape="round" color="primary" expand="block" fill="outline"
+            icon-left center text-center>
             <ion-icon size="large" slot="start" name="checkmark"></ion-icon>
             <div>Accept</div>
           </ion-button>
         </ion-col>
-        
+
       </ion-row>
     </ion-grid>
   </ion-card>
-  
+
   <ion-card>
 
     <ion-list lines="none">
@@ -62,6 +68,11 @@
           <ion-card-title>RM 200</ion-card-title>
           <h2>Syarikat XYZ</h2>
         </ion-label>
+        <div item-content slot="end">
+          <ion-button fill="clear" size="medium" href="CompanyDetails">
+            <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+          </ion-button>
+        </div>
       </ion-item>
     </ion-list>
 
