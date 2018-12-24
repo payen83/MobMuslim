@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
-import { HomePage } from '../home/home.page';
-import { OrdersPage } from '../orders/orders.page';
-import { FavouritePage } from '../favourite/favourite.page';
-import { ProfilePage } from '../profile/profile.page';
+import { HomePage } from '../general/home/home.page';
+import { OrdersPage } from '../customer/orders/orders.page';
+import { FavouritePage } from '../customer/favourite/favourite.page';
+import { ProfilePage } from '../general/profile/profile.page';
 
 const routes: Routes = [
   {

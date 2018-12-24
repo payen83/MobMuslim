@@ -1,28 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginPage } from './login/login.page';
-import { TabsPage } from './tabs/tabs.page';
-
+import { LoginPage } from './pages/general/login/login.page';
 
 const routes: Routes = [
-  // { path: '', loadChildren: './tabs/tabs.module#TabsPageModule'},
   { path: '', component: LoginPage},
-  // { path: '', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'Tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
-  // { path: 'Tabs', component: TabsPage },
-  { path: 'Favourite', loadChildren: './favourite/favourite.module#FavouritePageModule' },
-  { path: 'Profile', loadChildren: './profile/profile.module#ProfilePageModule' },
-  { path: 'Orders', loadChildren: './orders/orders.module#OrdersPageModule' },
-  { path: 'Login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'Form', loadChildren: './form/form.module#FormPageModule' },
-  { path: 'OrderDetail/:id', loadChildren: './order-detail/order-detail.module#OrderDetailPageModule' },
-  { path: 'CompanyDetails', loadChildren: './company-details/company-details.module#CompanyDetailsPageModule' },
-  { path: 'FormCatering', loadChildren: './form-catering/form-catering.module#FormCateringPageModule' },
-  { path: 'FormConfinement', loadChildren: './form-confinement/form-confinement.module#FormConfinementPageModule' },
-  { path: 'FormCleaning', loadChildren: './form-cleaning/form-cleaning.module#FormCleaningPageModule' },
-  { path: 'Accepted', loadChildren: './accepted/accepted.module#AcceptedPageModule' },
-  { path: 'FormCompleted', loadChildren: './form-completed/form-completed.module#FormCompletedPageModule' },
-  { path: 'StatusDetail/:id', loadChildren: './status-detail/status-detail.module#StatusDetailPageModule' }
+  { path: 'Tabs', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
+  { path: 'Favourite', loadChildren: './pages/customer/favourite/favourite.module#FavouritePageModule' },
+  { path: 'Profile', loadChildren: './pages/general/profile/profile.module#ProfilePageModule' },
+  { path: 'Orders', loadChildren: './pages/customer/orders/orders.module#OrdersPageModule' },
+  { path: 'Login', loadChildren: './pages/general/login/login.module#LoginPageModule' },
+  { path: 'Form', loadChildren: './pages/customer/form/form.module#FormPageModule' },
+  { path: 'OrderDetail/:id', loadChildren: './pages/customer/order-detail/order-detail.module#OrderDetailPageModule' },
+  { path: 'CompanyDetails', loadChildren: './pages/customer/company-details/company-details.module#CompanyDetailsPageModule' },
+  { path: 'FormCatering', loadChildren: './pages/customer/form-catering/form-catering.module#FormCateringPageModule' },
+  { path: 'FormConfinement', loadChildren: './pages/customer/form-confinement/form-confinement.module#FormConfinementPageModule' },
+  { path: 'FormCleaning', loadChildren: './pages/customer/form-cleaning/form-cleaning.module#FormCleaningPageModule' },
+  { path: 'Accepted', loadChildren: './pages/customer/accepted/accepted.module#AcceptedPageModule' },
+  { path: 'FormCompleted', loadChildren: './pages/customer/form-completed/form-completed.module#FormCompletedPageModule' },
+  { path: 'StatusDetail/:id', loadChildren: './pages/customer/status-detail/status-detail.module#StatusDetailPageModule' }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

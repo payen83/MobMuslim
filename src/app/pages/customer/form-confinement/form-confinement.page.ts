@@ -1,28 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
 import { FormCompletedPage } from '../form-completed/form-completed.page';
+import { ModalController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-form-cleaning',
-  templateUrl: './form-cleaning.page.html',
-  styleUrls: ['./form-cleaning.page.scss'],
+  selector: 'app-form-confinement',
+  templateUrl: './form-confinement.page.html',
+  styleUrls: ['./form-confinement.page.scss'],
 })
-export class FormCleaningPage implements OnInit {
-  selectOptions: any;
-  todayDate: any;
-  constructor(private router: Router, private alertController: AlertController, private modalController: ModalController) { 
-    this.selectOptions = {
-      header: 'Kawasan yang perlu dibersihkan',
-      subHeader:'Boleh pilih lebih dari satu pilihan',
-      translucent: true
-    };  
-    this.todayDate = null;
+export class FormConfinementPage implements OnInit {
+  orderForm: { date_booking: string, package: number, message?: string, address: string, city: string, state: string};
+  
+  constructor(private router: Router, private modalController: ModalController, private alertController: AlertController) { 
+    this.orderForm = { date_booking: null, package: null, message: '', address: null, city: null, state: null};
   }
 
   ngOnInit() {
-    let d = new Date();
-    this.todayDate = d.toDateString();
+    
   }
 
   async presentAlertConfirm() {
@@ -40,7 +34,11 @@ export class FormCleaningPage implements OnInit {
         }, {
           text: 'Yes',
           handler: () => {
-            //console.log('Confirm Okay');
+            // this.order.orderUrutPantang(this.orderForm).then(res => {
+            //   this.presentCompleted();
+            // }, err => {
+            //   alert(JSON.stringify(err));
+            // });
             this.presentCompleted();
           }
         }
@@ -60,7 +58,6 @@ export class FormCleaningPage implements OnInit {
     })
     return await modal.present();
   }
-
 
 
 }

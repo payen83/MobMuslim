@@ -7,10 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { TabsPageRoutingModule } from './tabs.router.module';
 
 import { TabsPage } from './tabs.page';
-import { HomePageModule } from '../home/home.module';
-import { OrdersPageModule } from '../orders/orders.module';
-import { ProfilePageModule } from '../profile/profile.module';
-import { FavouritePageModule } from '../favourite/favourite.module';
+import { HomePageModule } from '../general/home/home.module';
+import { OrdersPageModule } from '../customer/orders/orders.module';
+import { ProfilePageModule } from '../general/profile/profile.module';
+import { FavouritePageModule } from '../customer/favourite/favourite.module';
 
 @NgModule({
   imports: [

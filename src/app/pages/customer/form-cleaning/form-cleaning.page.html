@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tempahan</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <img src="assets/img/card-saopaolo.png" />
+    <div class="card-title cleaner">Pembantu Rumah Harian</div>
+  </ion-card>
+  <ion-list>
+    <ion-item-divider>Butiran Tempahan</ion-item-divider>
+    <ion-item>
+      <ion-label>Tarikh khidmat diperlukan</ion-label>
+      <ion-datetime [(ngModel)]="orderForm.date_booking" placeholder="Masukkan tarikh" pickerFormat="DD MMM YYYY"
+        displayFormat="DD/MM/YYYY" max="2020-12-31" min="{{getDateFormat()}}"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Jumlah masa</ion-label>
+      <ion-select placeholder="Buat pilihan" interface="alert" (ionChange)="onChangeDuration()" [(ngModel)]="orderForm.duration">
+        <ion-select-option value="4">4 jam</ion-select-option>
+        <ion-select-option value="5">5 jam</ion-select-option>
+        <ion-select-option value="6">6 jam</ion-select-option>
+        <ion-select-option value="7">7 jam</ion-select-option>
+        <ion-select-option value="8">8 jam</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Jenis kediaman</ion-label>
+      <ion-select placeholder="Buat pilihan" interface="alert" [(ngModel)]="orderForm.type_property">
+        <ion-select-option value="teres">Teres</ion-select-option>
+        <ion-select-option value="banglo">Banglo</ion-select-option>
+        <ion-select-option value="semid">Semi D</ion-select-option>
+        <ion-select-option value="kondo">Kondominium</ion-select-option>
+        <ion-select-option value="flat">Flat</ion-select-option>
+        <ion-select-option value="other">Lain-lain</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item-divider>Kawasan yang perlu dibersihkan</ion-item-divider>
+    <ion-item>
+      <ion-label>Sila buat pilihan</ion-label>
+      <ion-select placeholder="Klik sini" [(ngModel)]="cleanArea" interface="alert" [interfaceOptions]="selectOptions"
+        multiple="true">
+        <ion-select-option value="ruang tamu">Ruang tamu</ion-select-option>
+        <ion-select-option value="bilik air">Bilik air</ion-select-option>
+        <ion-select-option value="bilik tidur">Bilik tidur</ion-select-option>
+        <ion-select-option value="dapur">Dapur</ion-select-option>
+        <ion-select-option value="halaman">Halaman rumah</ion-select-option>
+        <ion-select-option value="keseluruhan">Keseluruhan rumah</ion-select-option>
+        <ion-select-option value="lain-lain">Lain-lain</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item-divider>Mesej tambahan</ion-item-divider>
+    <ion-item>
+      <ion-textarea placeholder="Taip mesej anda di sini" rows="3" [(ngModel)]="orderForm.message"></ion-textarea>
+    </ion-item>
+    <ion-item-divider>Butiran Pelanggan</ion-item-divider>
+    <ion-item>
+      <ion-textarea placeholder="Alamat" rows="5" [(ngModel)]="orderForm.address"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Bandar</ion-label>
+      <ion-input placeholder="i.e Kajang" [(ngModel)]="orderForm.city"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Negeri</ion-label>
+      <ion-input placeholder="i.e Selangor" [(ngModel)]="orderForm.state"></ion-input>
+    </ion-item>
+    <ion-item-divider *ngIf="totalPrice" class="total">Jumlah (bayar setelah servis selesai)
+      <ion-note slot="end">
+        <strong><h2 class="dark">RM {{totalPrice}}</h2></strong>
+      </ion-note>
+    </ion-item-divider>
+  </ion-list>
+  <div padding>
+    <ion-button (click)="presentAlertConfirm()" expand="block">Hantar</ion-button>
+  </div>
+</ion-content>

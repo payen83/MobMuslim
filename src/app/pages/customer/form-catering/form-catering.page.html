@@ -13,10 +13,11 @@
     <div class="card-title">Katering</div>
   </ion-card>
   <ion-list> 
+
     <ion-item-divider>Butiran Tempahan</ion-item-divider>
     <ion-item>
       <ion-label>Jenis majlis</ion-label>
-      <ion-select placeholder="Buat pilihan" okText="OK" cancelText="Cancel">
+      <ion-select placeholder="Buat pilihan" [(ngModel)]="orderForm.type_event" okText="OK" cancelText="Cancel">
         <ion-select-option value="Perkahwinan">Perkahwinan</ion-select-option>
         <ion-select-option value="Aqiqah">Aqiqah</ion-select-option>
         <ion-select-option value="Doa Selamat">Doa Selamat</ion-select-option>
@@ -27,15 +28,27 @@
     </ion-item>
     <ion-item>
       <ion-label>Tarikh majlis</ion-label>
-      <ion-datetime placeholder="Masukkan tarikh" pickerFormat="DD MMM YYYY" displayFormat="DD/MM/YYYY" min="2018-11-20" max="2022-12-09"></ion-datetime>
+      <ion-datetime placeholder="Masukkan tarikh" [(ngModel)]="orderForm.date_booking" pickerFormat="DD MMM YYYY" displayFormat="DD/MM/YYYY" min="2018-11-20" max="2022-12-09"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Jumlah tetamu</ion-label>
-      <ion-input type="number" placeholder="i.e 500"></ion-input>
+      <ion-input type="number" [(ngModel)]="orderForm.total_visitor" placeholder="i.e 500"></ion-input>
     </ion-item>
     <ion-item-divider>Mesej tambahan</ion-item-divider>
     <ion-item>
-      <ion-textarea placeholder="Taip mesej anda di sini" rows="3"></ion-textarea>
+      <ion-textarea placeholder="Taip mesej anda di sini" rows="3" [(ngModel)]="orderForm.message"></ion-textarea>
+    </ion-item>
+    <ion-item-divider>Butiran Pelanggan</ion-item-divider>
+    <ion-item>
+      <ion-textarea placeholder="Alamat" rows="5" [(ngModel)]="orderForm.address"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Bandar</ion-label>
+      <ion-input placeholder="i.e Kajang" [(ngModel)]="orderForm.city"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Negeri</ion-label>
+      <ion-input placeholder="i.e Selangor" [(ngModel)]="orderForm.state"></ion-input>
     </ion-item>
   </ion-list>
   <div padding>

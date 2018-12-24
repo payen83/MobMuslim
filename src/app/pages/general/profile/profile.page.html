@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Profile</ion-title>
     <ion-buttons slot="end">
-        <ion-button>Save</ion-button>
+        <ion-button (click)="logout()">Logout</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -15,7 +15,7 @@
       </ion-thumbnail>
       <ion-label>
         <ion-text>
-          <h2>user@gmail.com</h2>
+          <h2>{{user.email}}</h2>
         </ion-text>
         <ion-note slot="start">
           <p>Member since 20/9/2018</p>
@@ -25,15 +25,15 @@
     <ion-item-divider>Personal Details</ion-item-divider>
     <ion-item>
       <ion-label position="fixed">Name</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="user.name"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="fixed">Phone</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="user.u_phone"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="fixed">Address</ion-label>
-      <ion-textarea rows="3" type="text"></ion-textarea>
+      <ion-textarea rows="3" type="text" [(ngModel)]="user.u_address"></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label position="fixed">City</ion-label>
@@ -63,11 +63,14 @@
     <ion-item-divider>Account Settings</ion-item-divider>
     <ion-item>
       <ion-label position="fixed">Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label>Confirm password</ion-label>
-        <ion-input type="password"></ion-input>
-      </ion-item>
+      <ion-label>Confirm password</ion-label>
+      <ion-input type="password" [(ngModel)]="confirm_password"></ion-input>
+    </ion-item>
   </ion-list>
+  <div padding>
+    <ion-button (click)="saveProfile()" expand="block">Simpan</ion-button>
+  </div>
 </ion-content>
