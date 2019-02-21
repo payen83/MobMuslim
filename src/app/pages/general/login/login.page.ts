@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
+import { CommonService } from '../../../services/common/common.service';
 
 
 @Component({
@@ -11,7 +12,11 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class LoginPage implements OnInit {
   user: { email: string, password: string};
-  constructor(public router: Router, public navCtrl: NavController, public auth: AuthService) { 
+  constructor(public router: Router, 
+    public navCtrl: NavController, 
+    public auth: AuthService,
+    private common: CommonService
+    ) { 
     this.user = { email: 'profitsventure@gmail.com', password: '123456'}
   }
 
@@ -19,7 +24,9 @@ export class LoginPage implements OnInit {
   }
 
   doLogin(){
+    this.common.presentLoading();
     this.auth.login(this.user).then(res => {
+      this.common.dismissLoading();
       console.log(res);
       let response: any = res;
       this.auth.saveData('TOKEN', response.access_token);

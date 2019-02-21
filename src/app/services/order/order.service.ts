@@ -104,4 +104,32 @@ export class OrderService {
     });
   }
 
+  orderStatus(data){
+    return new Promise((resolve, reject) => {
+      this.auth.getData('USER').then(res => {
+        let response: any = res;
+        let user: any = JSON.parse(response);
+        let url: string = this.baseURL + 'urut-pantang/' + user.id;
+        let body = new FormData();
+        body.append('date_booking', data.date_booking);
+        body.append('package', data.package);
+        body.append('message', data.message);
+        body.append('address', data.address);
+        body.append('city', data.city);
+        body.append('state', data.state);      
+          this.http.post(url, body)
+          .subscribe(res => {
+            let response: any = res;
+            if(response.status){
+              resolve(response);
+            } else {
+              reject(response.error);
+            }
+          }, err => {
+            reject(err)
+          })
+      })
+    });
+  }
+
 }

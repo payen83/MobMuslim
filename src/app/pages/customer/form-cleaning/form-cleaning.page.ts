@@ -4,6 +4,7 @@ import { FormCompletedPage } from '../form-completed/form-completed.page';
 import { Router } from '@angular/router';
 import { OrderService } from '../../../services/order/order.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { CommonService } from '../../../services/common/common.service';
 
 @Component({
   selector: 'app-form-cleaning',
@@ -18,7 +19,12 @@ export class FormCleaningPage implements OnInit {
   minDate: any;
   totalPrice: number;
   orderForm: { date_booking: string, duration: number, message?: string, address: string, city: string, state: string, type_property: string, clean_area: string};
-  constructor(public auth: AuthService, private order: OrderService, private router: Router, private alertController: AlertController, private modalController: ModalController) { 
+  constructor(public auth: AuthService, 
+    private order: OrderService, 
+    private router: Router, 
+    private alertController: AlertController, 
+    private modalController: ModalController,
+    private common: CommonService) { 
     let d = new Date();
     this.tomorrow = new Date();
     this.tomorrow.setDate(d.getDate()+1);
@@ -44,9 +50,12 @@ export class FormCleaningPage implements OnInit {
 
   ngOnInit() {
     this.auth.getData('USER').then(data => {
-      let user: any = data;
-      console.log(user);
-      this.orderForm.address = JSON.parse(user).u_address;
+      let res: any = data;
+      let user = JSON.parse(res);
+      //console.log(user);
+      this.orderForm.address = user.u_address;
+      this.orderForm.city = user.u_city;
+      this.orderForm.state = user.u_state;
     })
   }
 
@@ -56,17 +65,7 @@ export class FormCleaningPage implements OnInit {
     return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() ;
     //return d.toISOString();
   }
-/*
-  body.append('date_booking', data.date_booking);
-  body.append('duration', data.duration);
-  body.append('message', data.message);
-  body.append('address', data.address);
-  body.append('city', data.city);
-  body.append('lng', data.lng);
-  body.append('lat', data.lat);
-  body.append('type_property', data.type_property);
-  body.append('clean_area', data.clean_area); 
-*/
+
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       header: 'Confirmation',
@@ -82,17 +81,25 @@ export class FormCleaningPage implements OnInit {
         }, {
           text: 'Yes',
           handler: () => {
-            this.orderForm.clean_area = this.cleanArea.toString();
-            console.log('Confirm Okay', this.orderForm);
-            // this.order.orderCleaning(this.orderForm).then(res => {
-            //   this.presentCompleted();
-            // })
+            //console.log('Confirm Okay', this.orderForm);
+            this.performBooking();
           }
         }
       ]
     });
-
     await alert.present();
+  }
+
+  performBooking(){
+    this.common.presentLoading();
+    this.orderForm.clean_area = this.cleanArea.toString();
+    this.order.orderCleaning(this.orderForm).then(res => {
+      this.common.dismissLoading();
+      this.presentCompleted();
+    }, err => {
+      alert(JSON.stringify(err));
+    });
+    this.presentCompleted();
   }
 
   async presentCompleted(){

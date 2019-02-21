@@ -21,4 +21,17 @@ export class OrdersPage implements OnInit {
     }
   }
 
+  showServiceIcon(service: string){
+    let url: string = 'assets/icon/';
+    let icon: string = null;
+    if(service == 'Katering'){
+      icon = 'catering.svg';
+    } else if (service == 'Urut Pantang') {
+      icon = 'confinement.svg';
+    } else {
+      icon = 'cleaner.svg';
+    }
+    return url + icon;
+  }
+
 }

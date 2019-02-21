@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormCompletedPage } from '../form-completed/form-completed.page';
 import { ModalController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { OrderService } from '../../../services/order/order.service';
+import { CommonService } from '../../../services/common/common.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-form-confinement',
@@ -11,12 +14,25 @@ import { Router } from '@angular/router';
 export class FormConfinementPage implements OnInit {
   orderForm: { date_booking: string, package: number, message?: string, address: string, city: string, state: string};
   
-  constructor(private router: Router, private modalController: ModalController, private alertController: AlertController) { 
+  constructor(
+    private router: Router, 
+    private modalController: ModalController, 
+    private alertController: AlertController,
+    private order: OrderService,
+    private common: CommonService,
+    private auth: AuthService) { 
     this.orderForm = { date_booking: null, package: null, message: '', address: null, city: null, state: null};
   }
 
   ngOnInit() {
-    
+    this.auth.getData('USER').then(data => {
+      let res: any = data;
+      let user = JSON.parse(res);
+      //console.log(user);
+      this.orderForm.address = user.u_address;
+      this.orderForm.city = user.u_city;
+      this.orderForm.state = user.u_state;
+    })
   }
 
   async presentAlertConfirm() {
@@ -34,18 +50,24 @@ export class FormConfinementPage implements OnInit {
         }, {
           text: 'Yes',
           handler: () => {
-            // this.order.orderUrutPantang(this.orderForm).then(res => {
-            //   this.presentCompleted();
-            // }, err => {
-            //   alert(JSON.stringify(err));
-            // });
-            this.presentCompleted();
+            this.performBooking();
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+  performBooking(){
+    this.common.presentLoading();
+    this.order.orderUrutPantang(this.orderForm).then(res => {
+      this.common.dismissLoading();
+      this.presentCompleted();
+    }, err => {
+      alert(JSON.stringify(err));
+    });
+    this.presentCompleted();
   }
 
   async presentCompleted(){

@@ -5,24 +5,26 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list lines="inset">
     <ion-item tappable (click)="viewDetail(1)">
-      <ion-avatar slot="start">
+      <!-- <ion-avatar slot="start">
         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
-      </ion-avatar>
+      </ion-avatar> -->
+      <ion-icon slot="start" [src]="showServiceIcon('Cleaner')"></ion-icon>
       <ion-label>
         <h2>Pembantu Rumah Harian</h2> 
         <p>20 Sep 2018</p>
         <p>Status: Disahkan</p>
       </ion-label>
       <div item-content slot="end">
-        <strong>RM 100</strong>
+        <strong>RM 100</strong> 
       </div>
     </ion-item>
     <ion-item tappable (click)="viewDetail(2)">
-        <ion-avatar slot="start">
+        <!-- <ion-avatar slot="start">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
-        </ion-avatar>
+        </ion-avatar> -->
+        <ion-icon slot="start" [src]="showServiceIcon('Katering')"></ion-icon>
         <ion-label>
           <h2>Katering</h2> 
           <p>20 Nov 2018</p>
