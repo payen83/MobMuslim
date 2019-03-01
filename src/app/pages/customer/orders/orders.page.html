@@ -6,33 +6,16 @@
 
 <ion-content>
   <ion-list lines="inset">
-    <ion-item tappable (click)="viewDetail(1)">
-      <!-- <ion-avatar slot="start">
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
-      </ion-avatar> -->
-      <ion-icon slot="start" [src]="showServiceIcon('Cleaner')"></ion-icon>
+    <ion-item tappable (click)="viewDetail(order.job_id, order.status_job)" *ngFor="let order of orderList">
+      <ion-icon slot="start" [src]="showServiceIcon(order.service)"></ion-icon>
       <ion-label>
-        <h2>Pembantu Rumah Harian</h2> 
-        <p>20 Sep 2018</p>
-        <p>Status: Disahkan</p>
+        <h2>{{order.service}}</h2> 
+        <p>Tarikh tempahan: {{order.date_booking}}</p>
+        <p>Status: {{order.status_job || 'menunggu respon' }}</p>
       </ion-label>
-      <div item-content slot="end">
-        <strong>RM 100</strong> 
+      <div item-content slot="end" *ngIf="order.min_price">
+        <strong>{{'RM'+setPrice(order.min_price)}}{{setMaxPrice(order.min_price, order.max_price)}}</strong> 
       </div>
     </ion-item>
-    <ion-item tappable (click)="viewDetail(2)">
-        <!-- <ion-avatar slot="start">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
-        </ion-avatar> -->
-        <ion-icon slot="start" [src]="showServiceIcon('Katering')"></ion-icon>
-        <ion-label>
-          <h2>Katering</h2> 
-          <p>20 Nov 2018</p>
-          <p>Status: Dalam proses</p>
-        </ion-label>
-        <div item-content slot="end">
-          <strong>RM 85</strong>
-        </div>
-      </ion-item>
   </ion-list>
 </ion-content>

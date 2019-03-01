@@ -60,10 +60,17 @@ export class FormCleaningPage implements OnInit {
   }
 
   getDateFormat() {
-    //console.log(this.tomorrow);
     let d = new Date(this.tomorrow);
-    return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() ;
-    //return d.toISOString();
+    //console.log(d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate()) ;
+    return d.getFullYear() + '-' + this.formatDateMonth(d.getMonth()+1) + '-' + this.formatDateMonth(d.getDate());
+  }
+
+  formatDateMonth(data){
+    if(data < 10){
+      return '0' + data;
+    } else {
+      return data;
+    }
   }
 
   async presentAlertConfirm() {
@@ -91,15 +98,16 @@ export class FormCleaningPage implements OnInit {
   }
 
   performBooking(){
-    this.common.presentLoading();
+   // this.common.presentLoading();
     this.orderForm.clean_area = this.cleanArea.toString();
+
     this.order.orderCleaning(this.orderForm).then(res => {
+      console.log(res);
       this.common.dismissLoading();
       this.presentCompleted();
     }, err => {
       alert(JSON.stringify(err));
-    });
-    this.presentCompleted();
+    }); 
   }
 
   async presentCompleted(){
