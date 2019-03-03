@@ -17,7 +17,7 @@
     <ion-item>
       <ion-label>Tarikh khidmat diperlukan</ion-label>
       <ion-datetime [(ngModel)]="orderForm.date_booking" placeholder="Masukkan tarikh" pickerFormat="DD MMM YYYY"
-        displayFormat="DD/MM/YYYY" max="2025" min="2019"></ion-datetime>
+        displayFormat="DD/MM/YYYY" max="2020-12-31" min="{{getDateFormat()}}"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Jumlah masa</ion-label>

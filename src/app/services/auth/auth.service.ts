@@ -53,16 +53,6 @@ export class AuthService {
     });
   }
 
-  clearStorage(){
-    return new Promise((resolve, reject) => {
-      this.storage.clear().then(() => {
-        resolve();
-      }, err => {
-        reject(err);
-      });
-    });
-  }
-
   updateUsers(data){
     return new Promise((resolve, reject) => {
       this.getData('USER').then(res => {
