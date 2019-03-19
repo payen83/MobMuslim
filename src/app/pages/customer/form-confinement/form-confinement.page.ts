@@ -60,14 +60,16 @@ export class FormConfinementPage implements OnInit {
   }
 
   performBooking(){
-    this.common.presentLoading();
-    this.order.orderUrutPantang(this.orderForm).then(res => {
-      this.common.dismissLoading();
-      this.presentCompleted();
-    }, err => {
-      alert(JSON.stringify(err));
+    this.common.presentLoading().then(()=>{
+      this.order.orderUrutPantang(this.orderForm).then(res => {
+        console.log(res);
+        this.common.dismissLoading().then(()=>{
+          this.presentCompleted();
+        })
+      }, err => {
+        alert(JSON.stringify(err));
+      });
     });
-    this.presentCompleted();
   }
 
   async presentCompleted(){

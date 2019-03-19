@@ -11,6 +11,8 @@ import { HomePageModule } from '../general/home/home.module';
 import { OrdersPageModule } from '../customer/orders/orders.module';
 import { ProfilePageModule } from '../general/profile/profile.module';
 import { FavouritePageModule } from '../customer/favourite/favourite.module';
+import { StatusDetailPageModule } from '../customer/status-detail/status-detail.module';
+import { OrderDetailPageModule } from '../customer/order-detail/order-detail.module';
 
 @NgModule({
   imports: [
@@ -22,6 +24,9 @@ import { FavouritePageModule } from '../customer/favourite/favourite.module';
     OrdersPageModule,
     ProfilePageModule,
     FavouritePageModule,
+    // StatusDetailPageModule,
+    // OrderDetailPageModule,
+    RouterModule
   ],
   declarations: [TabsPage]
 })

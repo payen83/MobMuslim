@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CommonService } from '../../../services/common/common.service';

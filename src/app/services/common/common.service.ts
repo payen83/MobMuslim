@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-
-  constructor(public loadingController: LoadingController) { }
+  _loading: any;
+  constructor(public loadingController: LoadingController, public alertController: AlertController) { }
 
   async presentLoading() {
     const loading = await this.loadingController.create();
@@ -14,6 +14,19 @@ export class CommonService {
   }
 
   async dismissLoading(){
-    this.loadingController.dismiss();
+    return await this.loadingController.dismiss();
+  }
+
+  async presentAlert(_message: string, title?: string) {
+    const alert = await this.alertController.create({
+      header: title,
+      message: _message,
+      buttons: [
+        {
+          text: 'OK'
+        }
+      ]
+    });
+    await alert.present();
   }
 }

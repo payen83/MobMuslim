@@ -8,20 +8,20 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
+  <ion-card *ngFor="let quote of quoteList">
     <ion-list lines="none">
       <ion-item>
         <ion-thumbnail slot="start">
           <img src="assets/img/user.png">
         </ion-thumbnail>
         <ion-label>
-          <ion-card-title>RM 200</ion-card-title>
-          <h2>Syarikat XYZ</h2>
+          <ion-card-title>RM {{quote.price}}</ion-card-title>
+          <h2>{{quote.provider_name}}</h2>
         </ion-label>
         <div item-content slot="end">
-          <ion-button fill="clear" size="medium" href="CompanyDetails">
+          <!-- <ion-button fill="clear" size="medium" href="CompanyDetails">
             <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
-          </ion-button>
+          </ion-button> -->
         </div>
       </ion-item>
     </ion-list>
@@ -31,7 +31,7 @@
           <ion-text>
             <h2>Location</h2>
           </ion-text>
-          <ion-note slot="start">Kuala Lumpur</ion-note>
+          <ion-note slot="start">{{getProviderLocation(quote)}}</ion-note>
         </ion-label>
       </ion-item>
       <ion-item>
@@ -39,14 +39,14 @@
           <ion-text>
             <h2>Message</h2>
           </ion-text>
-          <ion-note slot="start">Lorem ipsum..</ion-note>
+          <ion-note text-wrap slot="start">{{quote.message}}</ion-note>
         </ion-label>
       </ion-item>
     </ion-list>
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button (click)="presentAlertConfirm()" shape="round" color="primary" expand="block" fill="outline"
+          <ion-button (click)="presentAlertConfirm(quote.bitjob_id)" shape="round" color="primary" expand="block" fill="outline"
             icon-left center text-center>
             <ion-icon slot="start" name="checkmark"></ion-icon>
             <div>Accept</div>
@@ -57,7 +57,7 @@
     </ion-grid>
   </ion-card>
 
-  <ion-card>
+  <!-- <ion-card>
 
     <ion-list lines="none">
       <ion-item>
@@ -106,5 +106,5 @@
       </ion-row>
     </ion-grid>
 
-  </ion-card>
+  </ion-card> -->
 </ion-content>

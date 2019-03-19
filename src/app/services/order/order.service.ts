@@ -1,26 +1,46 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-
-  private baseURL: string = 'http://mobilemuslim.elyzian.xyz/api/request-service/';
+  private httpOptions: any;
+  private baseURL: string = 'http://mobilemuslim.elyzian.xyz/api/';
   
   constructor(public http: HttpClient, public auth: AuthService) { 
-
+    this.auth.getData('TOKEN').then(token => {
+      let new_headers = new HttpHeaders({ 
+        'Authorization': 'Bearer ' + token
+      });
+      this.httpOptions = { 
+        headers: new_headers
+      };
+    })
   }
 
-  orderCleaning(data){
+  formatDateMonth(data){
+    if(data < 10){
+      return '0' + data;
+    } else {
+      return data;
+    }
+  }
+
+  setDate(date){
+    let d = new Date(date.year.value, date.month.value, date.day.value);
+    return d.getFullYear() + '-' + this.formatDateMonth(d.getMonth()) + '-' + this.formatDateMonth(d.getDate());
+  }
+
+  orderCleaning(data: any){
     return new Promise((resolve, reject) => {
-      this.auth.getData('USER').then(res => {
-        let response: any = res;
-        let user: any = JSON.parse(response);
-        let url: string = this.baseURL + 'pembantu-rumah/' + user.id;
+      this.getCredentials().then(res => {
+        let user: any = res;
         let body = new FormData();
-        body.append('date_booking', data.date_booking);
+        let book_date = this.setDate(data.date_booking);
+
+        body.append('date_booking', book_date);
         body.append('duration', data.duration);
         body.append('message', data.message);
         body.append('address', data.address);
@@ -29,15 +49,12 @@ export class OrderService {
         body.append('lat', data.lat);
         body.append('type_property', data.type_property);
         body.append('clean_area', data.clean_area);
-        
-          this.http.post(url, body)
+
+        let url: string = this.baseURL + 'request-service/pembantu-rumah/' + user.id;
+        this.http.post(url, body, this.httpOptions)
           .subscribe(res => {
             let response: any = res;
-            if(response.status){
-              resolve(response);
-            } else {
-              reject(response.error);
-            }
+            resolve(response);
           }, err => {
             reject(err)
           })
@@ -45,27 +62,133 @@ export class OrderService {
     });
   }
 
-  orderCatering(data){
-    // this.orderForm = { date_booking: null, type_event: null, total_visitor: null, address: null, city: null, state: null};
-
+  orderCatering(data: any){
     return new Promise((resolve, reject) => {
-      this.auth.getData('USER').then(res => {
-        let response: any = res;
-        let user: any = JSON.parse(response);
-        let url: string = this.baseURL + 'katering/' + user.id;
+      this.getCredentials().then(res => {
+        let user: any = res;
         let body = new FormData();
-        body.append('date_booking', data.date_booking);
+        
+        let book_date = this.setDate(data.date_booking);
+        console.log(book_date);
+        body.append('date_booking', book_date);
         body.append('type_event', data.type_event);
         body.append('message', data.message);
         body.append('address', data.address);
         body.append('city', data.city);
         body.append('state', data.state);
-        body.append('total_visitor', data.total_visitor);        
-          this.http.post(url, body)
+        body.append('total_visitor', data.total_visitor);
+
+        let url: string = this.baseURL + 'request-service/katering/' + user.id;
+        this.http.post(url, body, this.httpOptions)
           .subscribe(res => {
             let response: any = res;
-            if(response.status){
+            resolve(response);
+          }, err => {
+            reject(err)
+          })
+        resolve();
+      })
+    });
+  }
+
+  orderUrutPantang(data: any){
+    return new Promise((resolve, reject) => {
+      this.getCredentials().then(res => {
+        let user: any = res;
+        let url: string = this.baseURL + 'request-service/urut-pantang/' + user.id;
+        let body = new FormData();
+        let book_date = this.setDate(data.date_booking);
+        body.append('date_booking', book_date);
+        body.append('package', data.package);
+        body.append('message', data.message);
+        body.append('address', data.address);
+        body.append('city', data.city);
+        body.append('state', data.state);    
+
+        this.http.post(url, body, this.httpOptions)
+          .subscribe(res => {
+            let response: any = res;
+            resolve(response);
+          }, err => {
+            reject(err)
+          })
+      })
+    });
+  }
+
+  viewOrderQuotation(job_id: any){
+    return new Promise((resolve, reject) => {
+      this.getCredentials().then(res => {
+        let user: any = res;
+        let body = new FormData();
+        body.append('customer_id', user.id);
+
+        let url: string = this.baseURL + 'customer/view-list-quotation/' + job_id;
+        this.http.post(url, body, this.httpOptions)
+          .subscribe(res => {
+            let response: any = res;
+            if(response.status != 'Token is Expired'){
               resolve(response);
+            } else {
+              reject('token expired');
+            }
+          }, err => {
+            reject(err)
+          })
+      })
+    });
+  }
+
+  viewJobStatus(){
+    return new Promise((resolve, reject) => {
+      this.getCredentials().then(res => {
+        let user: any = res;
+
+        let url: string = this.baseURL + 'job-request/customer-list/' + user.id;
+        this.http.get(url, this.httpOptions)
+          .subscribe(res => {
+            let response: any = res;
+            if(response.status != 'Token is Expired'){
+              resolve(response);
+            } else {
+              reject('token expired');
+            }
+          }, err => {
+            reject(err)
+          })
+      })
+    });
+  }
+
+  getCredentials(){
+    return new Promise((resolve, reject) => {
+      this.auth.getData('USER').then(res => {
+        let user: any = res;
+        this.auth.getData('TOKEN').then(token => {
+          let new_headers = new HttpHeaders({ 
+            'Authorization': 'Bearer ' + token
+          });
+          this.httpOptions = { 
+            headers: new_headers
+          };
+          resolve(JSON.parse(user));
+        })
+      }).catch( err => {
+        reject(err);
+      })
+    })
+  }
+
+  orderStatus(){
+    return new Promise((resolve, reject) => {
+      this.getCredentials().then(res => {
+        let user: any = res;
+        let url: string = this.baseURL + 'customer/view-list-booking/' + user.id;
+        this.http.get(url, this.httpOptions)
+          .subscribe(res => {
+            let response: any = res;
+            if(response.list_booking){
+              resolve(response.list_booking);
             } else {
               reject(response.error);
             }
@@ -76,55 +199,19 @@ export class OrderService {
     });
   }
 
-  orderUrutPantang(data){
+  acceptQuotation(provider_id: any, job_id: any){
     return new Promise((resolve, reject) => {
-      this.auth.getData('USER').then(res => {
-        let response: any = res;
-        let user: any = JSON.parse(response);
-        let url: string = this.baseURL + 'urut-pantang/' + user.id;
+      this.getCredentials().then(res => {
+        let user: any = res;
         let body = new FormData();
-        body.append('date_booking', data.date_booking);
-        body.append('package', data.package);
-        body.append('message', data.message);
-        body.append('address', data.address);
-        body.append('city', data.city);
-        body.append('state', data.state);      
-          this.http.post(url, body)
-          .subscribe(res => {
-            let response: any = res;
-            if(response.status){
-              resolve(response);
-            } else {
-              reject(response.error);
-            }
-          }, err => {
-            reject(err)
-          })
-      })
-    });
-  }
+        body.append('customer_id', user.id);
+        body.append('bitjob_id', provider_id);
 
-  orderStatus(data){
-    return new Promise((resolve, reject) => {
-      this.auth.getData('USER').then(res => {
-        let response: any = res;
-        let user: any = JSON.parse(response);
-        let url: string = this.baseURL + 'urut-pantang/' + user.id;
-        let body = new FormData();
-        body.append('date_booking', data.date_booking);
-        body.append('package', data.package);
-        body.append('message', data.message);
-        body.append('address', data.address);
-        body.append('city', data.city);
-        body.append('state', data.state);      
-          this.http.post(url, body)
+        let url: string = this.baseURL + 'quotation/confirm-quotation/' + job_id;
+        this.http.post(url, body, this.httpOptions)
           .subscribe(res => {
             let response: any = res;
-            if(response.status){
-              resolve(response);
-            } else {
-              reject(response.error);
-            }
+            resolve(response);
           }, err => {
             reject(err)
           })

@@ -28,8 +28,9 @@
     </ion-item>
     <ion-item>
       <ion-label>Tarikh majlis</ion-label>
-      <ion-datetime placeholder="Masukkan tarikh" [(ngModel)]="orderForm.date_booking" pickerFormat="DD MMM YYYY" displayFormat="DD/MM/YYYY" min="2018-11-20" max="2022-12-09"></ion-datetime>
-    </ion-item>
+      <ion-datetime [(ngModel)]="orderForm.date_booking" placeholder="Masukkan tarikh" pickerFormat="DD MMM YYYY"
+        displayFormat="DD/MM/YYYY" max="2025" min="2019"></ion-datetime>
+      </ion-item>
     <ion-item>
       <ion-label>Jumlah tetamu</ion-label>
       <ion-input type="number" [(ngModel)]="orderForm.total_visitor" placeholder="i.e 500"></ion-input>

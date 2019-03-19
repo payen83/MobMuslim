@@ -58,14 +58,18 @@ export class FormCateringPage implements OnInit {
   }
 
   performBooking(){
-    this.common.presentLoading();
-    this.order.orderCatering(this.orderForm).then(res => {
-      this.common.dismissLoading();
-      this.presentCompleted();
-    }, err => {
-      alert(JSON.stringify(err));
+    console.log(this.orderForm);
+    this.common.presentLoading().then(()=>{
+      this.order.orderCatering(this.orderForm).then(res => {
+        console.log(res);
+        this.common.dismissLoading().then(()=>{
+          this.presentCompleted();   
+        });     
+      }, err => {
+        alert(JSON.stringify(err));
+      });
     });
-    this.presentCompleted();
+    
   }
 
   async presentCompleted(){
@@ -74,7 +78,7 @@ export class FormCateringPage implements OnInit {
       //componentProps: { value: 123 }
     });
 
-    modal.onWillDismiss(data=>{
+    modal.onWillDismiss(()=>{
       this.router.navigateByUrl('/tabs/(order:order)');
     })
 
