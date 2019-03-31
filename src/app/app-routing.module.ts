@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'Form', loadChildren: './pages/customer/form/form.module#FormPageModule' },
   { path: 'OrderDetail/:id', loadChildren: './pages/customer/order-detail/order-detail.module#OrderDetailPageModule' },
   { path: 'StatusDetail/:id', loadChildren: './pages/customer/status-detail/status-detail.module#StatusDetailPageModule' },
-  { path: 'CompanyDetails', loadChildren: './pages/customer/company-details/company-details.module#CompanyDetailsPageModule' },
+  { path: 'CompanyDetails/:id', loadChildren: './pages/customer/company-details/company-details.module#CompanyDetailsPageModule' },
   { path: 'FormCatering', loadChildren: './pages/customer/form-catering/form-catering.module#FormCateringPageModule' },
   { path: 'FormConfinement', loadChildren: './pages/customer/form-confinement/form-confinement.module#FormConfinementPageModule' },
   { path: 'FormCleaning', loadChildren: './pages/customer/form-cleaning/form-cleaning.module#FormCleaningPageModule' },

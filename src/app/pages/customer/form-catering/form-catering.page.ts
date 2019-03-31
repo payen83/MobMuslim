@@ -13,21 +13,33 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class FormCateringPage implements OnInit {
   orderForm: { date_booking: string, type_event: string, message: string, total_visitor: number, address: string, city: string, state: string};
-  
+  tomorrow: any;
   constructor(private router: Router, 
     private alertController: AlertController, 
     private modalController: ModalController, 
     private order: OrderService,
     private common: CommonService,
     private auth: AuthService) { 
-    this.orderForm = { date_booking: null, type_event: null, message: null, total_visitor: null, address: null, city: null, state: null};
-  }
+
+      this.tomorrow = new Date();
+      let d = new Date();
+      this.tomorrow.setDate(d.getDate()+1);
+
+      this.orderForm = { 
+        date_booking: this.tomorrow.toISOString(), 
+        type_event: null,
+        message: null, 
+        total_visitor: null, 
+        address: null, 
+        city: null, 
+        state: null
+      };
+    }
 
   ngOnInit() {
     this.auth.getData('USER').then(data => {
       let res: any = data;
       let user = JSON.parse(res);
-      //console.log(user);
       this.orderForm.address = user.u_address;
       this.orderForm.city = user.u_city;
       this.orderForm.state = user.u_state;

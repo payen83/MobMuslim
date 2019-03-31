@@ -5,13 +5,16 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list lines="inset">
     <ion-item tappable (click)="viewDetail(order.job_id, order.status_job, order.booking_id)" *ngFor="let order of orderList">
       <ion-icon slot="start" [src]="showServiceIcon(order.service)"></ion-icon>
       <ion-label>
         <h2>{{order.service}}</h2> 
         <p>Tarikh tempahan: {{order.date_booking}}</p>
-        <p>Status: {{order.status_job || 'menunggu respon' }}</p>
+        <p>Status: {{ order.status_job || 'Menunggu Respon' }}</p>
       </ion-label>
       <div item-content slot="end" *ngIf="order.min_price">
         <strong>{{'RM'+setPrice(order.min_price)}}{{setMaxPrice(order.min_price, order.max_price)}}</strong> 

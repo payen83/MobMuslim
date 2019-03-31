@@ -13,7 +13,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class FormConfinementPage implements OnInit {
   orderForm: { date_booking: string, package: number, message?: string, address: string, city: string, state: string};
-  
+  tomorrow: any
   constructor(
     private router: Router, 
     private modalController: ModalController, 
@@ -21,14 +21,25 @@ export class FormConfinementPage implements OnInit {
     private order: OrderService,
     private common: CommonService,
     private auth: AuthService) { 
-    this.orderForm = { date_booking: null, package: null, message: '', address: null, city: null, state: null};
+
+      this.tomorrow = new Date();
+      let d = new Date();
+      this.tomorrow.setDate(d.getDate()+1);
+
+      this.orderForm = { 
+        date_booking: this.tomorrow.toISOString(), 
+        package: null, 
+        message: null, 
+        address: null, 
+        city: null, 
+        state: null
+      };
   }
 
   ngOnInit() {
     this.auth.getData('USER').then(data => {
       let res: any = data;
       let user = JSON.parse(res);
-      //console.log(user);
       this.orderForm.address = user.u_address;
       this.orderForm.city = user.u_city;
       this.orderForm.state = user.u_state;

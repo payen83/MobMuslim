@@ -25,27 +25,76 @@ export class StatusDetailPage implements OnInit {
     this.orders = [];
     this.current_order = {current_status: null, service: null, provider_details: []};
     this.service_provider = {name: null, u_phone: null};
+    // this.common.presentLoading();
 
     this.auth.getData('ORDERS').then(res => {
-      let _orders: any = res;
-      if(_orders){
-        //console.log('orders ada', _orders)
-        this.orders = JSON.parse(_orders);
-        console.log(this.orders);
-        this.getOrder();
-      } else {
-        this.order.viewJobStatus().then(res => {
-          //console.log('orders');
-          if(res){
-            let response: any = res;
-            this.orders = response;
-            //console.log(this.orders);
-            this.auth.saveData('ORDERS', JSON.stringify(this.orders));
-            this.getOrder();
-          }
-        })
+      let _res: any = res;
+      let response: any = JSON.parse(_res);
+      if(response){
+        this.current_order = response.find(_order => _order.job_id == this.job_id);
+        console.log(this.current_order);
+        if(!this.current_order){
+          this.getOrders();
+        } else {
+          // console.log(this.current_order);
+          this.service_provider = this.current_order.provider_details[0];
+          console.log(this.service_provider);
+        }
       }
     })
+
+    // this.order.viewJobStatus().then(res => {
+    //   this.common.dismissLoading();
+    //   console.log('orders', res);
+    //   if(res){
+    //     let response: any = res;
+    //     this.orders = response;
+    //     //console.log(this.orders);
+    //     this.auth.saveData('ORDERS', JSON.stringify(this.orders)).then(()=>{
+    //       this.getOrder();
+    //     });
+    //   }
+    // })
+    // this.auth.getData('ORDERS').then(res => {
+    //   let _orders: any = res;
+    //   if(_orders){
+    //     //console.log('orders ada', _orders)
+    //     this.orders = JSON.parse(_orders);
+    //     console.log(this.orders);
+    //     this.getOrder();
+    //   } else {
+    //     this.order.viewJobStatus().then(res => {
+    //       console.log('orders', res);
+    //       if(res){
+    //         let response: any = res;
+    //         this.orders = response;
+    //         //console.log(this.orders);
+    //         this.auth.saveData('ORDERS', JSON.stringify(this.orders)).then(()=>{
+    //           this.getOrder();
+    //         });
+    //       }
+    //     })
+    //   }
+    // })
+
+  }
+
+  getOrders(){
+    this.common.presentLoading();
+    this.order.viewJobStatus().then(res => {
+      this.common.dismissLoading();
+      if(res){
+        let response: any = res;
+        this.orders = response;
+        
+        this.auth.saveData('ORDERS', JSON.stringify(this.orders)).then(()=>{
+          this.getOrder();
+        });
+      }
+    })
+  }
+
+  ngOnInit(){
 
   }
 
@@ -55,6 +104,10 @@ export class StatusDetailPage implements OnInit {
 
   isPembantuRumah(service){
     return service == 'Pembantu Rumah';
+  }
+
+  isService(service: string, isService: string){
+    return service == isService;
   }
 
   getBanner(service: string){
@@ -67,14 +120,12 @@ export class StatusDetailPage implements OnInit {
     }
   }
 
-  ngOnInit() {
-    
-  } 
-
   getOrder(){
+    // console.log(this.orders);
     this.current_order = this.orders.find(_order => _order.job_id == this.job_id);
-    console.log(this.current_order);
+    // console.log(this.current_order);
     this.service_provider = this.current_order.provider_details[0];
+    console.log(this.service_provider);
   }
 
 }

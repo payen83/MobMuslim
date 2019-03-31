@@ -26,14 +26,14 @@ export class FormCleaningPage implements OnInit {
     private modalController: ModalController,
     private common: CommonService) { 
     let d = new Date();
+
     this.tomorrow = new Date();
     this.tomorrow.setDate(d.getDate()+1);
+    
     this.cleanArea = [];
     this.minDate = this.getDateFormat();
     this.totalPrice = null;
-    // this.todayDate = d.toISOString();
-    //this.orderForm.date_booking = this.todayDate;
-    // console.log(this.todayDate);
+
     this.orderForm = { date_booking: this.tomorrow.toISOString(), duration: null, message: null, address: null, city: null, state: null, clean_area: null, type_property: null};
 
     this.selectOptions = {
@@ -44,7 +44,7 @@ export class FormCleaningPage implements OnInit {
     
   }
 
-  onChangeDuration(){
+  onChangeDuration(){ 
     this.totalPrice = this.orderForm.duration * 25;
   }
 

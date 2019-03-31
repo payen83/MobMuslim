@@ -40,7 +40,13 @@ export class AuthService {
   }
 
   saveData(key: string, value: string){
-    this.storage.set(key, value);
+    return new Promise((resolve, reject)=>{
+      this.storage.set(key, value).then(()=>{
+        resolve()
+      },err => {
+        reject()
+      });
+    })
   }
 
   getData(key){

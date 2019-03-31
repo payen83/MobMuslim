@@ -29,6 +29,7 @@ export class OrderService {
   }
 
   setDate(date){
+    console.log(date);
     let d = new Date(date.year.value, date.month.value, date.day.value);
     return d.getFullYear() + '-' + this.formatDateMonth(d.getMonth()) + '-' + this.formatDateMonth(d.getDate());
   }
@@ -189,6 +190,27 @@ export class OrderService {
             let response: any = res;
             if(response.list_booking){
               resolve(response.list_booking);
+            } else {
+              reject(response.error);
+            }
+          }, err => {
+            reject(err)
+          })
+      })
+    });
+  }
+
+  getService(url: string, id?: any){
+    let _id: any = id || '';
+    return new Promise((resolve, reject) => {
+      this.getCredentials().then(res => {
+        //let user: any = res;
+        let _url: string = this.baseURL + url + _id;
+        this.http.get(_url, this.httpOptions)
+          .subscribe(res => {
+            let response: any = res;
+            if(response){
+              resolve(response);
             } else {
               reject(response.error);
             }

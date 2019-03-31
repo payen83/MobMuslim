@@ -9,10 +9,10 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  user: { name: string, email: string, phone: string, address: string, city: string, state: string, password?: string };
-
+  user: { name: string, email: string, u_phone: string, u_address: string, city: string, state: string, password?: string };
+  confirm_password: string;
   constructor(public router: Router, private auth: AuthService, private navCtrl: NavController) { 
-      this.user =   { name: null, email: null, phone: null, address: null, city: null, state: null, password: null };
+    this.user =   { name: null, email: null, u_phone: null, u_address: null, city: null, state: null, password: null };
   }
 
   ngOnInit() {
@@ -30,7 +30,5 @@ export class ProfilePage implements OnInit {
     //this.router.navigateByUrl('/Login');
     this.navCtrl.goRoot('/Login');
   }
-
-
 
 }

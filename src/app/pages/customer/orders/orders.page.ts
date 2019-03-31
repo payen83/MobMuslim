@@ -20,12 +20,19 @@ export class OrdersPage implements OnInit {
     this.orders.orderStatus().then(res => {
       this.common.dismissLoading();
       let response: any = res;
-      console.log(response)
+      // console.log(response)
       this.orderList = response;
     }, err => {
       //this.common.dismissLoading();
       console.log(err);
     });
+  }
+
+  doRefresh(event) {
+    this.ngOnInit();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
   }
 
   setPrice(price){

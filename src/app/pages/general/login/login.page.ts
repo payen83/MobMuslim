@@ -33,7 +33,8 @@ export class LoginPage implements OnInit {
       this.auth.saveData('USER', JSON.stringify(response.users[0]));
       this.router.navigateByUrl('/tabs/(home:home)');
     }).catch(err=>{
-      console.log('error login', err)
+      console.log('error login', err);
+      this.common.dismissLoading();
     })
     
   }
