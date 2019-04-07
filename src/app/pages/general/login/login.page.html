@@ -1,33 +1,98 @@
-<ion-content class="bg content-center" no-lines>
+<ion-content class="bg" no-lines>
+    <ion-grid style="height: 100%" *ngIf="isRegister; else login" padding>
+        <ion-row justify-content-center align-items-center style="height: 100%">
+            <ion-card no-lines>
+                <ion-card-header align="center">
+                  <ion-card-title color="light">
+                    Sign Up
+                  </ion-card-title>
+                  <p>Please fill up all details</p>
+                </ion-card-header>
 
-  <ion-card no-lines >
-    <div padding align="center">
-      <img src="assets/img/logo.png" class="image-logo">
-    </div>
-
-    <ion-list no-lines align="center">
-
-      <ion-item class="item-input">
-        <ion-label>
-          <ion-icon name="mail"></ion-icon> Email
-        </ion-label>
-        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-      </ion-item>
-
-      <ion-item class="item-input">
-        <ion-label>
-          <ion-icon name="lock"></ion-icon> Password
-        </ion-label>
-        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-      </ion-item>
-    
-    </ion-list>
-    <!-- (click)="doLogin()" -->
-    <div padding>
-      <ion-button class="btn" expand="block" shape="round" (click)="doLogin()">SIGN IN</ion-button>
-    </div>
-    <div text-center padding>
-        <ion-button color="light" expand="block" fill="clear" size="medium">Forgot Password?</ion-button>
-    </div>
-  </ion-card>
+                <div padding align="center">
+                  <img src="assets/img/logo.png" class="image-logo">
+                </div>
+            
+                <ion-list no-lines align="center" padding>
+                  <ion-item class="item-input">
+                    <ion-label>
+                      <ion-icon name="person"></ion-icon> Name
+                    </ion-label>
+                    <ion-input type="text" [(ngModel)]="register.name"></ion-input>
+                  </ion-item>
+                  <ion-item class="item-input">
+                    <ion-label>
+                      <ion-icon name="mail"></ion-icon> Email
+                    </ion-label>
+                    <ion-input type="text" [(ngModel)]="register.email"></ion-input>
+                  </ion-item>
+                  <ion-item class="item-input">
+                    <ion-label>
+                      <ion-icon name="call"></ion-icon> Phone
+                    </ion-label>
+                    <ion-input type="text" [(ngModel)]="register.u_phone"></ion-input>
+                  </ion-item>
+                  <ion-item class="item-input">
+                    <ion-label>
+                      <ion-icon name="lock"></ion-icon> Password
+                    </ion-label>
+                    <ion-input type="password" [(ngModel)]="register.password"></ion-input>
+                  </ion-item>
+                  <ion-item class="item-input">
+                    <ion-label>
+                      <ion-icon name="lock"></ion-icon> Confirm Password
+                    </ion-label>
+                    <ion-input type="password" [(ngModel)]="register.password_confirmation"></ion-input>
+                  </ion-item>
+                
+                </ion-list>
+                <!-- (click)="doLogin()" -->
+                <div padding>
+                  <ion-button class="btn" expand="block" shape="round" (click)="doRegister()">SIGN UP</ion-button>
+                </div>
+                <div text-center padding>
+                    <ion-button color="light" expand="block" fill="clear" size="medium" (click)="dismiss()">Cancel</ion-button>
+                </div>
+              </ion-card>
+        </ion-row>
+    </ion-grid>
+ 
+  <ng-template #login>
+      <ion-grid style="height: 100%">
+          <ion-row justify-content-center align-items-center style="height: 100%">
+              <ion-card no-lines padding>
+                  <div padding align="center">
+                    <img src="assets/img/logo.png" class="image-logo">
+                  </div>
+              
+                  <ion-list no-lines align="center">
+              
+                    <ion-item class="item-input">
+                      <ion-label>
+                        <ion-icon name="mail"></ion-icon> Email
+                      </ion-label>
+                      <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+                    </ion-item>
+              
+                    <ion-item class="item-input">
+                      <ion-label>
+                        <ion-icon name="lock"></ion-icon> Password
+                      </ion-label>
+                      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+                    </ion-item>
+                  
+                  </ion-list>
+                  <!-- (click)="doLogin()" -->
+                  <div padding>
+                    <ion-button class="btn" expand="block" shape="round" (click)="doLogin()">SIGN IN</ion-button>
+                  </div>
+                  <div text-center padding>
+                      <!-- <ion-button color="light" expand="block" fill="clear" size="medium">Forgot Password?</ion-button> -->
+                      <ion-button color="light" expand="block" fill="clear" size="medium" (click)="openRegister()">Register</ion-button>
+                  </div>
+                </ion-card>
+          </ion-row>
+      </ion-grid>
+  </ng-template>
+  
 </ion-content>

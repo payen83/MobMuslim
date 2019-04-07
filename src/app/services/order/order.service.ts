@@ -50,6 +50,7 @@ export class OrderService {
         body.append('lat', data.lat);
         body.append('type_property', data.type_property);
         body.append('clean_area', data.clean_area);
+        body.append('phone_no', data.phone_no);
 
         let url: string = this.baseURL + 'request-service/pembantu-rumah/' + user.id;
         this.http.post(url, body, this.httpOptions)
@@ -67,6 +68,7 @@ export class OrderService {
     return new Promise((resolve, reject) => {
       this.getCredentials().then(res => {
         let user: any = res;
+        console.log(user);
         let body = new FormData();
         
         let book_date = this.setDate(data.date_booking);
@@ -78,6 +80,7 @@ export class OrderService {
         body.append('city', data.city);
         body.append('state', data.state);
         body.append('total_visitor', data.total_visitor);
+        body.append('phone_no', data.phone_no);
 
         let url: string = this.baseURL + 'request-service/katering/' + user.id;
         this.http.post(url, body, this.httpOptions)
@@ -89,7 +92,7 @@ export class OrderService {
           })
         resolve();
       })
-    });
+     });
   }
 
   orderUrutPantang(data: any){
@@ -105,6 +108,7 @@ export class OrderService {
         body.append('address', data.address);
         body.append('city', data.city);
         body.append('state', data.state);    
+        body.append('phone_no', data.phone_no);
 
         this.http.post(url, body, this.httpOptions)
           .subscribe(res => {

@@ -12,7 +12,7 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrls: ['./form-confinement.page.scss'],
 })
 export class FormConfinementPage implements OnInit {
-  orderForm: { date_booking: string, package: number, message?: string, address: string, city: string, state: string};
+  orderForm: { phone_no: string, date_booking: string, package: number, message?: string, address: string, city: string, state: string};
   tomorrow: any
   constructor(
     private router: Router, 
@@ -27,6 +27,7 @@ export class FormConfinementPage implements OnInit {
       this.tomorrow.setDate(d.getDate()+1);
 
       this.orderForm = { 
+        phone_no: null,
         date_booking: this.tomorrow.toISOString(), 
         package: null, 
         message: null, 
@@ -43,6 +44,9 @@ export class FormConfinementPage implements OnInit {
       this.orderForm.address = user.u_address;
       this.orderForm.city = user.u_city;
       this.orderForm.state = user.u_state;
+      if(user.u_phone){
+        this.orderForm.phone_no = user.u_phone;
+      }
     })
   }
 
@@ -71,6 +75,10 @@ export class FormConfinementPage implements OnInit {
   }
 
   performBooking(){
+    if(!this.orderForm.phone_no){
+      this.common.presentAlert('Sila masukkan no. telefon anda.', 'Peringatan');
+      return;
+    }
     this.common.presentLoading().then(()=>{
       this.order.orderUrutPantang(this.orderForm).then(res => {
         console.log(res);

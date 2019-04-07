@@ -17,7 +17,7 @@ export class StatusDetailPage implements OnInit {
   constructor(
     private common: CommonService, 
     private order: OrderService, 
-    private router: Router, 
+    // private router: Router, 
     private route: ActivatedRoute, 
     private auth: AuthService) { 
     this.job_id = this.route.snapshot.paramMap.get('id');
@@ -31,8 +31,11 @@ export class StatusDetailPage implements OnInit {
       let _res: any = res;
       let response: any = JSON.parse(_res);
       if(response){
-        this.current_order = response.find(_order => _order.job_id == this.job_id);
-        console.log(this.current_order);
+        // console.log('response',response);
+        // this.current_order = response.find(_order => _order.job_id == this.job_id);
+        // console.log(this.current_order);
+        this.orders = response;
+        this.getOrder()
         if(!this.current_order){
           this.getOrders();
         } else {
@@ -40,6 +43,8 @@ export class StatusDetailPage implements OnInit {
           this.service_provider = this.current_order.provider_details[0];
           console.log(this.service_provider);
         }
+      } else {
+        this.getOrders();
       }
     })
 
@@ -77,6 +82,15 @@ export class StatusDetailPage implements OnInit {
     //   }
     // })
 
+  }
+
+  getOrder(){
+    console.log('job id', this.job_id, 'orders', this.orders);
+
+    this.current_order = this.orders.find(_order => _order.job_id == this.job_id);
+     console.log('curr order',this.current_order);
+    this.service_provider = this.current_order.provider_details[0];
+    // console.log(this.service_provider);
   }
 
   getOrders(){
@@ -118,14 +132,6 @@ export class StatusDetailPage implements OnInit {
     } else {
       return '/assets/img/catering.png';
     }
-  }
-
-  getOrder(){
-    // console.log(this.orders);
-    this.current_order = this.orders.find(_order => _order.job_id == this.job_id);
-    // console.log(this.current_order);
-    this.service_provider = this.current_order.provider_details[0];
-    console.log(this.service_provider);
   }
 
 }

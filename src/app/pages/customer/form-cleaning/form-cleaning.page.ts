@@ -18,7 +18,7 @@ export class FormCleaningPage implements OnInit {
   tomorrow: any;
   minDate: any;
   totalPrice: number;
-  orderForm: { date_booking: string, duration: number, message?: string, address: string, city: string, state: string, type_property: string, clean_area: string};
+  orderForm: { phone_no: string, date_booking: string, duration: number, message?: string, address: string, city: string, state: string, type_property: string, clean_area: string};
   constructor(public auth: AuthService, 
     private order: OrderService, 
     private router: Router, 
@@ -34,7 +34,7 @@ export class FormCleaningPage implements OnInit {
     this.minDate = this.getDateFormat();
     this.totalPrice = null;
 
-    this.orderForm = { date_booking: this.tomorrow.toISOString(), duration: null, message: null, address: null, city: null, state: null, clean_area: null, type_property: null};
+    this.orderForm = { phone_no: null, date_booking: this.tomorrow.toISOString(), duration: null, message: null, address: null, city: null, state: null, clean_area: null, type_property: null};
 
     this.selectOptions = {
       header: 'Kawasan yang perlu dibersihkan',
@@ -56,6 +56,9 @@ export class FormCleaningPage implements OnInit {
       this.orderForm.address = user.u_address;
       this.orderForm.city = user.u_city;
       this.orderForm.state = user.u_state;
+      if(user.u_phone){
+        this.orderForm.phone_no = user.u_phone;
+      }
     })
   }
 
@@ -98,6 +101,10 @@ export class FormCleaningPage implements OnInit {
   }
 
   performBooking(){
+    if(!this.orderForm.phone_no){
+      this.common.presentAlert('Sila masukkan no. telefon anda.', 'Peringatan');
+      return;
+    }
     this.orderForm.clean_area = this.cleanArea.toString();
     this.common.presentLoading().then(()=>{
       this.order.orderCleaning(this.orderForm).then(res => {

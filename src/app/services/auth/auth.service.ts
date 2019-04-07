@@ -21,6 +21,24 @@ export class AuthService {
     })
   }
 
+  register(user: any) {
+    console.log('user ', JSON.stringify(user))
+    let url: string = this.baseURL + '/auth/regtr';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, user)
+      .subscribe(res => {
+        let response: any = res;
+        if(response.user){
+          resolve(response);
+        } else {
+          reject(response.error);
+        }
+      }, err => {
+        reject(err)
+      })
+    });
+  }
+
   login(user: any) {
     console.log('user ', JSON.stringify(user))
     let url: string = this.baseURL + '/auth/login';

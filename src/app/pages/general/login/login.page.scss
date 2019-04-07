@@ -20,12 +20,11 @@
     to { background-position: 100% 0; }
   }
 
-.content-center>*{
-    //display: flex;
-    align-content: center !important;
-    align-items: center !important;
+// .content-center>*{
+//     align-content: center !important;
+//     align-items: center !important;
 
-}
+// }
 
 ion-item {
     margin-bottom: 3px;
@@ -55,9 +54,11 @@ ion-list {
     
 }
 
-
+p {
+    color: #fff;
+}
 
 .sc-ion-card-ios-h, .sc-ion-card-md-h {
-    padding-top: 30%;
+    max-width: 500px;
     box-shadow : none ;
 }

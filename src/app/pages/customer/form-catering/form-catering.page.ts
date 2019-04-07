@@ -12,7 +12,7 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrls: ['./form-catering.page.scss'],
 })
 export class FormCateringPage implements OnInit {
-  orderForm: { date_booking: string, type_event: string, message: string, total_visitor: number, address: string, city: string, state: string};
+  orderForm: { phone_no: string, date_booking: string, type_event: string, message: string, total_visitor: number, address: string, city: string, state: string};
   tomorrow: any;
   constructor(private router: Router, 
     private alertController: AlertController, 
@@ -32,6 +32,7 @@ export class FormCateringPage implements OnInit {
         total_visitor: null, 
         address: null, 
         city: null, 
+        phone_no: null,
         state: null
       };
     }
@@ -43,6 +44,9 @@ export class FormCateringPage implements OnInit {
       this.orderForm.address = user.u_address;
       this.orderForm.city = user.u_city;
       this.orderForm.state = user.u_state;
+      if(user.u_phone){
+        this.orderForm.phone_no = user.u_phone;
+      }
     });
   }
 
@@ -71,6 +75,10 @@ export class FormCateringPage implements OnInit {
 
   performBooking(){
     console.log(this.orderForm);
+    if(!this.orderForm.phone_no){
+      this.common.presentAlert('Sila masukkan no. telefon anda.', 'Peringatan');
+      return;
+    }
     this.common.presentLoading().then(()=>{
       this.order.orderCatering(this.orderForm).then(res => {
         console.log(res);
@@ -82,6 +90,7 @@ export class FormCateringPage implements OnInit {
       });
     });
     
+    // this.order.orderCatering(this.orderForm);
   }
 
   async presentCompleted(){
