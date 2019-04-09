@@ -34,7 +34,17 @@ export class FormCleaningPage implements OnInit {
     this.minDate = this.getDateFormat();
     this.totalPrice = null;
 
-    this.orderForm = { phone_no: null, date_booking: this.tomorrow.toISOString(), duration: null, message: null, address: null, city: null, state: null, clean_area: null, type_property: null};
+    this.orderForm = { 
+      phone_no: null, 
+      date_booking: this.tomorrow.toISOString(), 
+      duration: null, 
+      message: null, 
+      address: null, 
+      city: null, 
+      state: null, 
+      clean_area: null, 
+      type_property: null
+    };
 
     this.selectOptions = {
       header: 'Kawasan yang perlu dibersihkan',
@@ -59,7 +69,7 @@ export class FormCleaningPage implements OnInit {
       if(user.u_phone){
         this.orderForm.phone_no = user.u_phone;
       }
-    })
+    })  
   }
 
   getDateFormat() {
@@ -113,7 +123,9 @@ export class FormCleaningPage implements OnInit {
           this.presentCompleted();
         })
       }, err => {
-        alert(JSON.stringify(err));
+        this.common.dismissLoading().then(()=>{
+          alert(JSON.stringify(err));
+        })
       });
     });
   }

@@ -29,8 +29,9 @@ export class OrderService {
   }
 
   setDate(date){
-    console.log(date);
-    let d = new Date(date.year.value, date.month.value, date.day.value);
+    // console.log(date);
+    // let d = new Date(date.year.value, date.month.value, date.day.value);
+    let d = new Date(date);
     return d.getFullYear() + '-' + this.formatDateMonth(d.getMonth()) + '-' + this.formatDateMonth(d.getDate());
   }
 
@@ -70,7 +71,6 @@ export class OrderService {
         let user: any = res;
         console.log(user);
         let body = new FormData();
-        
         let book_date = this.setDate(data.date_booking);
         console.log(book_date);
         body.append('date_booking', book_date);
@@ -88,7 +88,7 @@ export class OrderService {
             let response: any = res;
             resolve(response);
           }, err => {
-            reject(err)
+            reject(err);
           })
         resolve();
       })

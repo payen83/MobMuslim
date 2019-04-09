@@ -87,6 +87,30 @@ export class AuthService {
     });
   }
 
+  updatePassword(password: any){
+    return new Promise((resolve, reject) => {
+      this.getData('USER').then(res => {
+        let response: any = res;
+        let user: any = JSON.parse(response);
+        let url: string = this.baseURL + '/users/change-password/' + user.id;
+        let body = new FormData();
+  
+        body.append('password', password);
+        this.http.post(url, body, this.httpOptions)
+        .subscribe(res => {
+          let response: any = res;
+          if(response.status){
+            resolve(response);
+          } else {
+            reject(response);
+          }
+        }, err => {
+          reject(err)
+        })
+      })
+    });
+  }
+  
   updateUsers(data){
     return new Promise((resolve, reject) => {
       this.getData('USER').then(res => {
@@ -97,8 +121,10 @@ export class AuthService {
 
         body.append('u_address', data.u_address);
         body.append('u_phone', data.u_phone);
-        body.append('message', data.message);
-        body.append('address', data.address);
+        body.append('u_state', data.state);
+        body.append('u_city', data.u_city);
+        body.append('u_postcode', data.u_postcode);
+        body.append('name', data.name);
   
           this.http.post(url, body, this.httpOptions)
           .subscribe(res => {
@@ -106,7 +132,7 @@ export class AuthService {
             if(response.status){
               resolve(response);
             } else {
-              reject(response.error);
+              reject(response);
             }
           }, err => {
             reject(err)

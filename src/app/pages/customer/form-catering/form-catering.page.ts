@@ -36,7 +36,7 @@ export class FormCateringPage implements OnInit {
         state: null
       };
     }
-
+ 
   ngOnInit() {
     this.auth.getData('USER').then(data => {
       let res: any = data;

@@ -37,11 +37,11 @@
     </ion-item>
     <ion-item>
       <ion-label position="fixed">City</ion-label>
-      <ion-input placeholder="i.e Shah Alam" type="text"></ion-input>
+      <ion-input placeholder="i.e Shah Alam" type="text" [(ngModel)]="user.u_city"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>State</ion-label>
-      <ion-select placeholder="Please select">
+      <ion-select placeholder="Please select" [(ngModel)]="user.u_state">
         <ion-select-option value="Kuala Lumpur">Kuala Lumpur</ion-select-option>
         <ion-select-option value="Selangor">Selangor</ion-select-option>
         <ion-select-option value="Putrajaya">Putrajaya</ion-select-option>
