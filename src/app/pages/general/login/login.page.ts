@@ -23,7 +23,9 @@ export class LoginPage implements OnInit {
     private modalController: ModalController,
     private route: ActivatedRoute,
     ) { 
-    this.user = { email: 'profitsventure@gmail.com', password: '123456'};
+    // this.user = { email: 'profitsventure@gmail.com', password: '123456'};
+    this.user = { email: null, password: null};
+
     this.register = { role: 'customer', email: null, password: null, name: null, u_phone: null, password_confirmation: null};
     // let type = this.route.snapshot.paramMap.get('type');
     

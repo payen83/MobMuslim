@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root'
 })
 export class AuthService {
-  baseURL: string = 'http://mobilemuslim.elyzian.xyz/api';
+  baseURL: string = 'https://mobilemuslim.elyzian.xyz/api';
   httpOptions: any;
 
   constructor(public http: HttpClient, private storage: Storage) { 

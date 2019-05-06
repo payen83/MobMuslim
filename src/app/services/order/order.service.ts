@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   private httpOptions: any;
-  private baseURL: string = 'http://mobilemuslim.elyzian.xyz/api/';
+  private baseURL: string = 'https://mobilemuslim.elyzian.xyz/api/';
   
   constructor(public http: HttpClient, public auth: AuthService) { 
     this.auth.getData('TOKEN').then(token => {
