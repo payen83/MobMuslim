@@ -65,6 +65,7 @@ export class FormConfinementPage implements OnInit {
         }, {
           text: 'Yes',
           handler: () => {
+            this.orderForm.date_booking = this.order.setDate(this.orderForm.date_booking);
             this.performBooking();
           }
         }

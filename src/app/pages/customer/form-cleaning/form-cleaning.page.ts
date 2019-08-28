@@ -31,20 +31,10 @@ export class FormCleaningPage implements OnInit {
     this.tomorrow.setDate(d.getDate()+1);
     
     this.cleanArea = [];
-    this.minDate = this.getDateFormat();
+    this.minDate = this.getDateFormat(this.tomorrow);
     this.totalPrice = null;
 
-    this.orderForm = { 
-      phone_no: null, 
-      date_booking: this.tomorrow.toISOString(), 
-      duration: null, 
-      message: null, 
-      address: null, 
-      city: null, 
-      state: null, 
-      clean_area: null, 
-      type_property: null
-    };
+    this.setNull();
 
     this.selectOptions = {
       header: 'Kawasan yang perlu dibersihkan',
@@ -57,7 +47,19 @@ export class FormCleaningPage implements OnInit {
   onChangeDuration(){ 
     this.totalPrice = this.orderForm.duration * 25;
   }
-
+  setNull(){
+    this.orderForm = { 
+      phone_no: null, 
+      date_booking: this.tomorrow.toISOString(), 
+      duration: null, 
+      message: null, 
+      address: null, 
+      city: null, 
+      state: null, 
+      clean_area: null, 
+      type_property: null
+    };
+  }
   ngOnInit() {
     this.auth.getData('USER').then(data => {
       let res: any = data;
@@ -72,8 +74,8 @@ export class FormCleaningPage implements OnInit {
     })  
   }
 
-  getDateFormat() {
-    let d = new Date(this.tomorrow);
+  getDateFormat(_date: any) {
+    let d = new Date(_date);
     //console.log(d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate()) ;
     return d.getFullYear() + '-' + this.formatDateMonth(d.getMonth()+1) + '-' + this.formatDateMonth(d.getDate());
   }
@@ -87,8 +89,9 @@ export class FormCleaningPage implements OnInit {
   }
 
   async presentAlertConfirm() {
+    console.log(this.orderForm);
     const alert = await this.alertController.create({
-      header: 'Confirmation',
+      header: 'Confirmation v2',
       message: 'Are you sure you want to proceed with the booking?',
       buttons: [
         {
@@ -102,6 +105,13 @@ export class FormCleaningPage implements OnInit {
           text: 'Yes',
           handler: () => {
             //console.log('Confirm Okay', this.orderForm);
+            // let book_date: any = this.orderForm.date_booking;
+            // if(typeof this.orderForm.date_booking != 'string'){
+            //   this.orderForm.date_booking = this.getDateFormat(new Date(book_date.year.value, book_date.month.value, book_date.day.value));
+            //   console.log(this.orderForm.date_booking);
+            // }
+            this.orderForm.date_booking = this.order.setDate(this.orderForm.date_booking);
+            // console.log('book date',this.orderForm.date_booking)
             this.performBooking();
           }
         }
@@ -118,8 +128,9 @@ export class FormCleaningPage implements OnInit {
     this.orderForm.clean_area = this.cleanArea.toString();
     this.common.presentLoading().then(()=>{
       this.order.orderCleaning(this.orderForm).then(res => {
-        console.log(res);
+        //console.log(res);
         this.common.dismissLoading().then(()=>{
+          this.setNull();
           this.presentCompleted();
         })
       }, err => {

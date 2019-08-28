@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -22,28 +22,53 @@ export class OrderService {
   }
 
   formatDateMonth(data){
+    
+    let data_ = data;
     if(data < 10){
-      return '0' + data;
+      data_ = '0' + data;
     } else {
-      return data;
+      data_ = data;
     }
+    console.log(data_);
+    return data_
   }
 
-  setDate(date){
+  setDate_old(date){
     // console.log(date);
     // let d = new Date(date.year.value, date.month.value, date.day.value);
     let d = new Date(date);
-    return d.getFullYear() + '-' + this.formatDateMonth(d.getMonth()) + '-' + this.formatDateMonth(d.getDate());
+    return d.getFullYear() + '-' + this.formatDateMonth(d.getMonth()+1) + '-' + this.formatDateMonth(d.getDate());
   }
 
+  setDate(date: any){
+    let d: any;
+    if(typeof date != 'string'){
+      // console.log('case 1');
+      // d = new Date(date.year.value, date.month.value, date.day.value);
+      // console.log('d is: ',d,'d.getMonth',d.getMonth());
+      return date.year.value + '-' + this.formatDateMonth(date.month.value) + '-' + this.formatDateMonth(date.day.value)
+    } else {
+      d = new Date(date);
+      // console.log('case 2');
+      return d.getFullYear() + '-' + this.formatDateMonth(d.getMonth()+1) + '-' + this.formatDateMonth(d.getDate());
+    }
+  } 
+
+
+
   orderCleaning(data: any){
+    // let book_date = this.setDate(data.date_booking);
+    // console.log(book_date);
     return new Promise((resolve, reject) => {
+      // let book_date = this.setDate(data.date_booking);
+      // console.log(book_date);
+      // resolve();
       this.getCredentials().then(res => {
         let user: any = res;
         let body = new FormData();
-        let book_date = this.setDate(data.date_booking);
-
-        body.append('date_booking', book_date);
+        // let book_date = this.setDate(data.date_booking);
+        console.log(data.date_booking);
+        body.append('date_booking', data.date_booking);
         body.append('duration', data.duration);
         body.append('message', data.message);
         body.append('address', data.address);
@@ -72,9 +97,9 @@ export class OrderService {
         let user: any = res;
         console.log(user);
         let body = new FormData();
-        let book_date = this.setDate(data.date_booking);
-        console.log(book_date);
-        body.append('date_booking', book_date);
+        // let book_date = this.setDate(data.date_booking);
+        // console.log(book_date);
+        body.append('date_booking', data.date_booking);
         body.append('type_event', data.type_event);
         body.append('message', data.message);
         body.append('address', data.address);
@@ -102,8 +127,8 @@ export class OrderService {
         let user: any = res;
         let url: string = this.baseURL + 'request-service/urut-pantang/' + user.id;
         let body = new FormData();
-        let book_date = this.setDate(data.date_booking);
-        body.append('date_booking', book_date);
+        // let book_date = this.setDate(data.date_booking);
+        body.append('date_booking', data.date_booking);
         body.append('package', data.package);
         body.append('message', data.message);
         body.append('address', data.address);
